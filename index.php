@@ -11,14 +11,20 @@ session_start();
 session_regenerate_id();
 
 
+
 //********************************************//
 //Routing
 if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true) {
+    require_once'/Views/admin/users.php';
     //admin views should be required here
 } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false) {
+        require_once'/Views/member/view_my_profile.php';
+
+    
     //members views should be required here
 } else {
     //public views should be required here
+    require_once '/Views/public/login.php';
 }
 //********************************************//
 
