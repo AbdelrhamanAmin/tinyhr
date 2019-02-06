@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,23 +8,63 @@ require_once("autoload.php");
 define("_ALLOW_ACCESS", 1);
 session_start();
 session_regenerate_id();
-
-
-
+// admin/user, admin/users, member/edit , member/profile , public/signup, public/login index.php
 //********************************************//
-//Routing
-if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true) {
-    require_once'/Views/admin/users.php';
-    //admin views should be required here
-} elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false) {
-        require_once'/Views/member/view_my_profile.php';
+    // Routing
+    if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] == '1') {
+        //admin views should be required here
+        $page = 'admin/';
+        $page  .= isset($_GET['id']) ? "user": "users";
 
-    
-    //members views should be required here
-} else {
-    //public views should be required here
-    require_once '/Views/public/login.php';
-}
-//********************************************//
+    } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false) {
+        //members views should be required here
+        $page = 'member/';
+        $page  .= isset($_GET['edit']) ? "edit" : "profile";
+
+    } else{
+        //public views should be required here
+        $page = 'public/';
+        if(isset($_POST['signup'])){
+            $page .= 'signup';
+        }
+        else{
+            $page .='login';
+        }
+        
+    }
+?>
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  
+    <header>
+        <hr>
+        <center><h1>Top Stuff</h1></center>
+        <hr>
+    </header>
+<center>    <div class="content">
+        <?php 
+
+
+        require_once './Views/'.$page. '.php';    
+        ?>
+      
+    </div><center>
+
+    <footer>
+        <hr>
+        <center><h1>Bottom Stuff</h1></center>
+        <hr>
+    </footer>
+
+
+</body>
+</html>
