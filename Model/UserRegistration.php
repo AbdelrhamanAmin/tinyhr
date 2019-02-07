@@ -5,7 +5,7 @@ class UserRegistration
     private $errors = array();
 
 
-    
+
     public function __construct()
     {
         $this->validate_username();
@@ -21,8 +21,8 @@ class UserRegistration
             $_SESSION['is_admin'] = $user['isadmin'];
 
         }
-        
-        
+
+
     }
 
     public function get_errors_list(){
@@ -32,7 +32,7 @@ class UserRegistration
 
     private function validate_post(){
         $post_fields = ['username', 'password', 'fullname', 'job'];
-        
+
         foreach($post_fields as $field){
             if(empty($_POST[$field])) {
                 array_push($this->errors," $field is required");
@@ -42,9 +42,9 @@ class UserRegistration
 
     private function validate_files(){
 
-            $file_types = ['image/jpeg','application/pdf'];
-            $file_type_index = 0;
-            foreach($_FILES as $file => $content ){
+        $file_types = ['image/jpeg','application/pdf'];
+        $file_type_index = 0;
+        foreach($_FILES as $file => $content ){
             if($_FILES[$file]['name'] == ""){
                 array_push($this->errors, $file." is required");
             }
@@ -66,26 +66,26 @@ class UserRegistration
     private function validate_username(){
         $db = new MySQLHandler("members");
         $results  = $db->get_single_record('username',$_POST['username']);
-        
+
         if($results){
-           array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
+            array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
         }
 
     }
 
     private function insert_new_user(){
         $hashed_pw = hash('sha256',$_POST['password']);
-        
+
 
         /// ------------------------------------------ BEWARE OF SQL INJECTIONS 
         $sql = "INSERT INTO members(isadmin, username, fullname, photo, cv, job, password )VALUES ( 
         '0','"
-        .$_POST['username']."','"
-        .$_POST['fullname']."','"
-        .$_POST['username'].".jpeg" ."','"
-        .$_POST['username'].".pdf"  ."','"
-        .$_POST['job']."','"
-        .$hashed_pw."'
+            .$_POST['username']."','"
+            .$_POST['fullname']."','"
+            .$_POST['username'].".jpeg" ."','"
+            .$_POST['username'].".pdf"  ."','"
+            .$_POST['job']."','"
+            .$hashed_pw."'
         );";
 
         // ------------------------------------------ TESTTTTTT THE FOLLOWING ON UBUNTU 
