@@ -89,7 +89,6 @@ class UserRegistration
         );";
 
         // ------------------------------------------ TESTTTTTT THE FOLLOWING ON UBUNTU 
-        echo __PHOTOS_DIR__.$_POST['username'].".jpeg";
         move_uploaded_file($_FILES['photo']['tmp_name'], __PHOTOS_DIR__.$_POST['username'].".jpeg");
         move_uploaded_file($_FILES['cv']['tmp_name'], __CVS_DIR__.$_POST['username'].".pdf");
 

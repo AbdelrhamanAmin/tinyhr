@@ -24,7 +24,7 @@ session_regenerate_id();
     } else{
         //public views should be required here
         $page = 'public/';
-        if(isset($_POST['signup'])){
+        if(isset($_GET['signup']) || isset($_POST['signup'])){
             $page .= 'signup';
         }
         else{

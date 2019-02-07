@@ -1,4 +1,5 @@
 <?php
+if(isset($_POST['signup']) ){
     $ur = new UserRegistration();
     // echo '<pre>' . var_export($ur, true) . '</pre>';
     if (count($ur->get_errors_list())>0){
@@ -12,6 +13,7 @@
         require_once('./Views/member/profile.php');
         die();
     }  
+}
 ?>
 
 
