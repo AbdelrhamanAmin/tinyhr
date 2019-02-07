@@ -10,13 +10,15 @@ session_start();
 session_regenerate_id();
 // admin/user, admin/users, member/edit , member/profile , public/signup, public/login index.php
 //********************************************//
-    // Routing
+    // Routing 
+var_dump($_SESSION);
     if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] == '1') {
         //admin views should be required here
         $page = 'admin/';
         $page  .= isset($_GET['id']) ? "user": "users";
 
-    } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false) {
+    } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === '0') {
+        echo "hiiiiiii";
         //members views should be required here
         $page = 'member/';
         $page  .= isset($_GET['edit']) ? "edit" : "profile";
@@ -24,6 +26,7 @@ session_regenerate_id();
     } else{
         //public views should be required here
         $page = 'public/';
+
         if(isset($_GET['signup']) || isset($_POST['signup'])){
             $page .= 'signup';
         }

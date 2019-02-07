@@ -10,7 +10,9 @@ if(isset($_POST['signup']) ){
     // user registered redirect to his profile
     else {
         // put session id 
-        require_once('./Views/member/profile.php');
+        header("Refresh:0");
+//        require_once('./Views/member/profile.php');
+//        var_dump($_SESSION);
         die();
     }  
 }

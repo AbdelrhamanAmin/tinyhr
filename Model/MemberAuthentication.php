@@ -24,7 +24,7 @@ class MemberAuthentication {
      
     public function set_session(){
         echo '<pre>' . var_export($_SESSION, true) . '</pre>';
-        $_SESSION['is_admin'] =  ($this->member['isadmin'])? true: false;
+        $_SESSION['is_admin'] =  $this->member['isadmin'];
         $_SESSION['user_id'] = $this->member['id'];
     }
 
