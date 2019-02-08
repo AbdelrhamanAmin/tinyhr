@@ -4,7 +4,6 @@ if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['passw
     $auth= new MemberAuthentication();
 
     if ($auth->is_valid()){
-        // require_once('./Views/member/profile.php');
         header("Refresh:0");
         die();
     }
