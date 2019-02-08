@@ -16,7 +16,7 @@ class UserRegistration
             $this->insert_new_user();
 
             $db = new MySQLHandler('members');
-            $user = $db->get_record_by_field('username',$_POST['username']);
+            $user = $db->get_record_by_field('username',$_POST['username'])[0];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['is_admin'] = $user['isadmin'];
 
@@ -75,14 +75,13 @@ class UserRegistration
 
     private function insert_new_user(){
         
-
-        $values  = array();
+        // echo '<pre>' . var_export($values  = array();
         $values ['isadmin' ] = 0;
         $values ['username'] = $_POST['username'];
         $values ['fullname'] = $_POST['fullname'];
         $values ['photo'] = $_POST['username']."jpeg";
-        $values ['cv'] = $_POST['cv'].".pdf";
-        $values ['job'] = $_POST['job'];
+        $values ['cv'] = $_POST['username'].".pdf";
+        $values ['job'] = $_POST['username'];
         $values ['password'] = hash('sha256',$_POST['password']);
 
 

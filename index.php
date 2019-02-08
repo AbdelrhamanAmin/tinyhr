@@ -58,9 +58,9 @@ if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
         <center><h1>Top Stuff
         <?php
             if(isset($_SESSION['user_id'])){?>
-                <h6 ALIGN=RIGHT>
+                <span ALIGN=RIGHT>
                     <a  href="?logout"> Logout</a>
-            </h6>
+            </span>
            <?php }?>
            </h1></center>
         <hr>

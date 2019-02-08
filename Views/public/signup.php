@@ -12,7 +12,7 @@ if(isset($_POST['signup']) ){
         // put session id 
         header("Refresh:0");
 //        require_once('./Views/member/profile.php');
-//        var_dump($_SESSION);
+    //    var_dump($_SESSION);
         die();
     }  
 }
