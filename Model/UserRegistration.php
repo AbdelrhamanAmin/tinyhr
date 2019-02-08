@@ -1,48 +1,32 @@
-<?php 
-
-class UserRegistration
+<?php class UserRegistration
 {
     private $errors = array();
-
-
-
     public function __construct()
     {
         $this->validate_username();
         $this->validate_password();
         $this->validate_post();
         $this->validate_files();
-
         if(count($this->errors) ==0){
             $this->insert_new_user();
-
             $db = new MySQLHandler('members');
             $user = $db->get_record_by_field('username',$_POST['username'])[0];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['is_admin'] = $user['isadmin'];
-
         }
-
-
     }
-
     public function get_errors_list(){
         return $this->errors;
     }
-
-
     private function validate_post(){
         $post_fields = ['username', 'password', 'fullname', 'job'];
-
         foreach($post_fields as $field){
             if(empty($_POST[$field])) {
                 $this->errors[$field] = $field." is required";
             }
         }
     }
-
     private function validate_files(){
-
         $file_types = ['image/jpeg','application/pdf'];
         $file_type_index = 0;
         foreach($_FILES as $file => $content ){
@@ -51,46 +35,35 @@ class UserRegistration
             }
             else {
                 if($_FILES[$file]['type'] != $file_types[$file_type_index]){
-
                     $this->errors[$file] = "Only ".$file_types[$file_type_index]." is allowed";    
-
                     if($_FILES[$file]['size'] > __MAX_FILE_SIZE__ || $_FILES[$file]['error']){
                         $this->errors[$file] = $file." is too large maximum size is 1 MB";    
-
                     }
                 }
-
             }
             $file_type_index++;
         }
     }
-
     private function validate_username(){
         $db = new MySQLHandler("members");
-        $results  = $db->get_record_by_id('username',$_POST['username']);
-
+        $results  = $db->get_record_by_id('username',trim($_POST['username']));
         if($results){
             // array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
             $this->errors['username'] = "The username \"". $_POST['username']."\" already exists";
-
         }
-
     }
-
     private function validate_password(){
         if (!empty($_POST['password'])){
-            echo strlen($_POST['password']).'<br>';
           
             if (strlen($_POST['password']) < __MIN_PWD_LEN__){
                 $this->errors['password'] = "Password must be greater than 8 characters";
             }
             if (strlen($_POST['password']) > __MAX_PWD_LEN__){
-                $this->errors['password'] = "Password must be greater than 16 characters";
+                $this->errors['password'] = "Password must be less than 16 characters";
             }
             
         }
     }
-
     private function insert_new_user(){
         
         // echo '<pre>' . var_export($values  = array();
@@ -101,16 +74,9 @@ class UserRegistration
         $values ['cv'] = $_POST['username'].".pdf";
         $values ['job'] = $_POST['username'];
         $values ['password'] = hash('sha256',$_POST['password']);
-
-
         move_uploaded_file($_FILES['photo']['tmp_name'], __PHOTOS_DIR__.$_POST['username'].".jpeg");
         move_uploaded_file($_FILES['cv']['tmp_name'], __CVS_DIR__.$_POST['username'].".pdf");
-
-
         $db = new MySQLHandler('members');
         $db->save($values);
     }
-
-
-
 }

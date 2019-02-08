@@ -4,17 +4,13 @@ echo "<h4>User Page</h4>";
 $db = new MySQLHandler('members');
 $user = $db->get_record_by_id($_GET['user_id']);
 if(!empty($user)){
-    // echo '<pre>' . var_export($user, true) . '</pre>';
     $user = $user[0];
 }
 else{
-    // echo (404);
     echo "<h1>NO SUCH USER</h1>";
     echo "<p>PLEASE DO NOT CHANGE THE URL</p>";
     $user = null;
 }
-// echo __PHOTOS_DIR__.$user['photo'];
-// echo '<pre>' . var_export($_GET, true) . '</pre>';
 
 if (isset($user)){?>
 

@@ -15,7 +15,6 @@ if(isset($_POST['signup']) ){
         header("Refresh:0");
         die();
     }  
-    echo '<pre>' . var_export($errors, true) . '</pre>';
 }
 ?>
 
