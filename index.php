@@ -21,7 +21,7 @@ if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
     if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] == '1') {
         //admin views should be required here
         $page = 'admin/';
-        $page  .= isset($_GET['id']) ? "user": "users";
+        $page  .= isset($_GET['user_id']) ? "user": "users";
 
     } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === '0') {
         //members views should be required here
