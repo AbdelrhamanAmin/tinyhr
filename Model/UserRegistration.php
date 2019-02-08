@@ -16,7 +16,7 @@ class UserRegistration
             $this->insert_new_user();
 
             $db = new MySQLHandler('members');
-            $user = $db->get_single_record('username',$_POST['username']);
+            $user = $db->get_record_by_field('username',$_POST['username']);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['is_admin'] = $user['isadmin'];
 
@@ -65,7 +65,7 @@ class UserRegistration
 
     private function validate_username(){
         $db = new MySQLHandler("members");
-        $results  = $db->get_single_record('username',$_POST['username']);
+        $results  = $db->get_record_by_id('username',$_POST['username']);
 
         if($results){
             array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
@@ -74,28 +74,24 @@ class UserRegistration
     }
 
     private function insert_new_user(){
-        $hashed_pw = hash('sha256',$_POST['password']);
+        
+
+        $values  = array();
+        $values ['isadmin' ] = 0;
+        $values ['username'] = $_POST['username'];
+        $values ['fullname'] = $_POST['fullname'];
+        $values ['photo'] = $_POST['username']."jpeg";
+        $values ['cv'] = $_POST['cv'].".pdf";
+        $values ['job'] = $_POST['job'];
+        $values ['password'] = hash('sha256',$_POST['password']);
 
 
-        /// ------------------------------------------ BEWARE OF SQL INJECTIONS 
-        $sql = "INSERT INTO members(isadmin, username, fullname, photo, cv, job, password )VALUES ( 
-        '0','"
-            .$_POST['username']."','"
-            .$_POST['fullname']."','"
-            .$_POST['username'].".jpeg" ."','"
-            .$_POST['username'].".pdf"  ."','"
-            .$_POST['job']."','"
-            .$hashed_pw."'
-        );";
-
-        // ------------------------------------------ TESTTTTTT THE FOLLOWING ON UBUNTU 
         move_uploaded_file($_FILES['photo']['tmp_name'], __PHOTOS_DIR__.$_POST['username'].".jpeg");
         move_uploaded_file($_FILES['cv']['tmp_name'], __CVS_DIR__.$_POST['username'].".pdf");
 
 
         $db = new MySQLHandler('members');
-        $db->execute_query($sql);
-        $db->disconnect();
+        $db->save($values);
     }
 
 

@@ -10,15 +10,20 @@ session_start();
 session_regenerate_id();
 // admin/user, admin/users, member/edit , member/profile , public/signup, public/login index.php
 //********************************************//
+
+if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
+    // var_dump($_SESSION);
+    session_destroy();
+    $_GET=[];
+    header('Refresh:0');
+}
     // Routing 
-var_dump($_SESSION);
     if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] == '1') {
         //admin views should be required here
         $page = 'admin/';
         $page  .= isset($_GET['id']) ? "user": "users";
 
     } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === '0') {
-        echo "hiiiiiii";
         //members views should be required here
         $page = 'member/';
         $page  .= isset($_GET['edit']) ? "edit" : "profile";
@@ -50,12 +55,18 @@ var_dump($_SESSION);
   
     <header>
         <hr>
-        <center><h1>Top Stuff</h1></center>
+        <center><h1>Top Stuff
+        <?php
+            if(isset($_SESSION['user_id'])){?>
+                <h6 ALIGN=RIGHT>
+                    <a  href="?logout"> Logout</a>
+            </h6>
+           <?php }?>
+           </h1></center>
         <hr>
     </header>
 <center>    <div class="content">
         <?php 
-
 
         require_once './Views/'.$page. '.php';    
         ?>
