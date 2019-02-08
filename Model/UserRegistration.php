@@ -9,6 +9,7 @@ class UserRegistration
     public function __construct()
     {
         $this->validate_username();
+        $this->validate_password();
         $this->validate_post();
         $this->validate_files();
 
@@ -35,7 +36,7 @@ class UserRegistration
 
         foreach($post_fields as $field){
             if(empty($_POST[$field])) {
-                array_push($this->errors," $field is required");
+                $this->errors[$field] = $field." is required";
             }
         }
     }
@@ -46,15 +47,16 @@ class UserRegistration
         $file_type_index = 0;
         foreach($_FILES as $file => $content ){
             if($_FILES[$file]['name'] == ""){
-                array_push($this->errors, $file." is required");
+                $this->errors[$file] = $file." is required";
             }
             else {
                 if($_FILES[$file]['type'] != $file_types[$file_type_index]){
 
-                    array_push($this->errors, "Only ".$file_types[$file_type_index]." is allowed");
+                    $this->errors[$file] = "Only ".$file_types[$file_type_index]." is allowed";    
 
                     if($_FILES[$file]['size'] > __MAX_FILE_SIZE__ || $_FILES[$file]['error']){
-                        array_push($this->errors, $file." is too large maximum size is 1 MB");
+                        $this->errors[$file] = $file." is too large maximum size is 1 MB";    
+
                     }
                 }
 
@@ -68,9 +70,25 @@ class UserRegistration
         $results  = $db->get_record_by_id('username',$_POST['username']);
 
         if($results){
-            array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
+            // array_push( $this->errors,"The username \"". $_POST['username']."\" already exists");    
+            $this->errors['username'] = "The username \"". $_POST['username']."\" already exists";
+
         }
 
+    }
+
+    private function validate_password(){
+        if (!empty($_POST['password'])){
+            echo strlen($_POST['password']).'<br>';
+          
+            if (strlen($_POST['password']) < __MIN_PWD_LEN__){
+                $this->errors['password'] = "Password must be greater than 8 characters";
+            }
+            if (strlen($_POST['password']) > __MAX_PWD_LEN__){
+                $this->errors['password'] = "Password must be greater than 16 characters";
+            }
+            
+        }
     }
 
     private function insert_new_user(){
@@ -79,7 +97,7 @@ class UserRegistration
         $values ['isadmin' ] = 0;
         $values ['username'] = $_POST['username'];
         $values ['fullname'] = $_POST['fullname'];
-        $values ['photo'] = $_POST['username']."jpeg";
+        $values ['photo'] = $_POST['username'].".jpeg";
         $values ['cv'] = $_POST['username'].".pdf";
         $values ['job'] = $_POST['username'];
         $values ['password'] = hash('sha256',$_POST['password']);

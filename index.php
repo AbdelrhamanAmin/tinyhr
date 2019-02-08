@@ -52,32 +52,27 @@ if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
     <title>Document</title>
 </head>
 <body>
-  
+<center>
     <header>
         <hr>
-        <center><h1>Top Stuff
-        <?php
-            if(isset($_SESSION['user_id'])){?>
-                <span ALIGN=RIGHT>
-                    <a  href="?logout"> Logout</a>
-            </span>
-           <?php }?>
-           </h1></center>
+            <h1>Top Stuff
+                <?php
+                    if(isset($_SESSION['user_id'])){?>
+                        <span ALIGN=RIGHT> <a  href="?logout"> Logout</a> </span>
+                <?php }?>
+            </h1>
         <hr>
     </header>
-<center>    <div class="content">
-        <?php 
-
-        require_once './Views/'.$page. '.php';    
-        ?>
-      
-    </div><center>
+    <main class="content">
+            <?php require_once './Views/'.$page. '.php';    ?>
+    </main>
 
     <footer>
         <hr>
-        <center><h1>Bottom Stuff</h1></center>
+            <h3>Bottom Stuff</h3>
         <hr>
     </footer>
+</center>
 
 
 </body>

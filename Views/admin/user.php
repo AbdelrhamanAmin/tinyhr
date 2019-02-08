@@ -1,18 +1,28 @@
 <?php
+echo "<h4>User Page</h4>";
 
-echo "User page";
 $db = new MySQLHandler('members');
 $user = $db->get_record_by_id($_GET['user_id']);
 if(!empty($user)){
-    echo '<pre>' . var_export($user, true) . '</pre>';
+    // echo '<pre>' . var_export($user, true) . '</pre>';
     $user = $user[0];
 }
 else{
-    echo "No Such user";
+    // echo (404);
+    echo "<h1>NO SUCH USER</h1>";
+    echo "<p>PLEASE DO NOT CHANGE THE URL</p>";
+    $user = null;
 }
-echo '<pre>' . var_export($_GET, true) . '</pre>';
-?>
+// echo __PHOTOS_DIR__.$user['photo'];
+// echo '<pre>' . var_export($_GET, true) . '</pre>';
+
+if (isset($user)){?>
 
 <div>
-    <a href="<?php echo "?start=".$_GET['hist']."&users";?>">Back</a>
+    <h4><?php echo $user['fullname'];?></h4>
+    <p><?php echo $user['job'];?></p>
+    <img+ src="<?php echo __PHOTOS_DIR__.$user['photo']?>">
 </div>
+
+<?php }?>
+<a href="<?php echo "?start=".$_GET['hist']."&users";?>">Back</a>

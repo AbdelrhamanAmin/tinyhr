@@ -28,12 +28,12 @@ if (count($members)<__RECORDS_PER_PAGE__){
         <tr>
             <th> Name </th>
             <th> Job </th>
+            <th> More Info </th>
         </tr>
         <?php foreach($members as $member){?> 
         <tr>
-            <td> <?php echo $member['fullname'];?> </td>
+            <td> <?php echo $member['fullname'];?></td>
             <td> <?php echo $member['job'];?> </td>
-            <td> <?php echo $member['id'];?> </td>
 
             <td><a href="<?php echo "?user_id=". $member['id']."&hist=".$start_index;?>">more</a></td>
         </tr>
