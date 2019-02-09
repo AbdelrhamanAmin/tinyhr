@@ -21,7 +21,6 @@ class MemberAuthentication {
     public function is_valid(){
         return $this->valid;
     }
-
      
     public function set_session(){
         $_SESSION['is_admin'] =  $this->member['isadmin'];
