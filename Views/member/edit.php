@@ -6,18 +6,38 @@ $user = $db->get_record_by_id($_SESSION['user_id'])[0];
 
 if(isset($_POST['update'])){    
     $db = new MySQLHandler('members');
-    $edited_values = array(
+
+    $input_fields = array(
         "fullname"=>$_POST['fullname'],
-        "job"=>$_POST['job']
-        // "password"=>$_POST['passwrod'],
-        // "cv"=>$_POST['cv'],
-        // "photo"=>$_POST['photo']
+        "job"=>$_POST['job'],
+        "password"=>$_POST['password'],
      );
 
-    $user = $db->update($edited_values, intval($_SESSION['user_id']) );
-    header('Location: index.php');
+    $updated_files = array();
+    foreach($_FILES as $file){
+        if (!empty($file['name'])){
+            $updated_files [] = $file;
+        }
+    }
+    echo '<pre>' . var_export($_FILES, true) . '</pre>';
+    echo '<pre>' . var_export($updated_files, true) . '</pre>';
+    $form = new FormValidation($input_fields, $updated_files);
 
-    echo "$user";
+    $errors = $form->get_errors_list();
+    if (count($errors)>0){
+        foreach($errors as $error){
+            echo $error.'<br>';
+            }
+        }
+    // user registered redirect to his profile from index
+    else {
+        // put session id
+        $edited_values = array_merge($input_fields, $updated_files);
+         
+        $user = $db->update($edited_values, $_SESSION['user_id']);
+        header("Refresh:0");
+        die();
+    }  
 }
 
 ?>
@@ -25,7 +45,7 @@ if(isset($_POST['update'])){
 
 <h4>Edit Profile</h4>
 
-<form   method = "post" enctype="multipart/form-data">
+<form  action = "<?php echo $_SERVER['PHP_SELF'] ?> " method = "post" enctype="multipart/form-data">
     <label>UserName  :</label>
     <input type = "text" name = "username" value = "<?php echo $user['username']; ?> "class = "box" placeholder="Enter your Name" /><br /><br />
     <label>Password  :</label>
@@ -40,3 +60,5 @@ if(isset($_POST['update'])){
     <input type="file"  name = "cv" > <br />
     <input  type = "submit" name = "update" value="update"><br />
 </form>	
+
+<a href="?profile"> back </a>

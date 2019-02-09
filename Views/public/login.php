@@ -20,4 +20,4 @@ if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['passw
     <input type = "password" name = "password" class = "box" placeholder="Enter your PassWord" /><br/><br />
     <button  type = "submit" name = "login" >Login</button><br />
 </form>	
-<a href="?signup">Sign up</a> 
+<a href="?signup">Sign up</a>

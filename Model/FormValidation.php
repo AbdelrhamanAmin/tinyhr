@@ -9,6 +9,7 @@ class FormValidation
     public function __construct($input_fields, $files_uploaded = null)
     {
         $this->input_fields = $input_fields;
+        $this->files_uploaded = $files_uploaded;
         $this->clean_fields();
         $this->validate_post();
         if (isset($this->input_fields['username'])) {
@@ -67,13 +68,13 @@ class FormValidation
     {
         $file_types = ['image/jpeg', 'application/pdf'];
         $file_type_index = 0;
-        foreach ($_FILES as $file => $content) {
-            if ($_FILES[$file]['name'] == "") {
+        foreach ($this->files_uploaded as $file => $content) {
+            if ($this->files_uploaded[$file]['name'] == "") {
                 $this->errors[$file] = $file . " is required";
             } else {
-                if ($_FILES[$file]['type'] != $file_types[$file_type_index]) {
+                if ($this->files_uploaded[$file]['type'] != $file_types[$file_type_index]) {
                     $this->errors[$file] = "Only " . $file_types[$file_type_index] . " is allowed";
-                    if ($_FILES[$file]['size'] > __MAX_FILE_SIZE__ || $_FILES[$file]['error']) {
+                    if ($this->files_uploaded[$file]['size'] > __MAX_FILE_SIZE__ || $this->files_uploaded[$file]['error']) {
                         $this->errors[$file] = $file . " is too large maximum size is 1 MB";
                     }
                 }

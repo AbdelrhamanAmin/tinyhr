@@ -7,7 +7,6 @@ if(isset($_POST['signup']) ){
     $form_input['fullname'] = $_POST['fullname'];
     $form_input['job']      = $_POST['job'];
 
-    $file = (!empty($_FILES))? $_FILES: Null;
     $form = new FormValidation($form_input, $_FILES);
 
     $errors = $form->get_errors_list();

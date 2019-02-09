@@ -1,6 +1,12 @@
 <?php class User
 {
     private $username;
+    private $fullname;
+    private $photo;
+    private $cv;
+    private $job;
+    private $password;
+    
     public function insert_new_user(){
         
         // echo '<pre>' . var_export($values  = array();
