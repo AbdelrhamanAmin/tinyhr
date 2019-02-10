@@ -107,7 +107,8 @@ class MySQLHandler {
             $sql2 = str_replace(",)", ")", $sql2);
             $sql = $sql1 . $sql2;
 
-        
+            $this->debug($sql);
+            
             if (mysqli_query($this->_db_handler, $sql)) {
                 $this->disconnect();
                 return true;
@@ -139,7 +140,8 @@ class MySQLHandler {
 
         $sql .= "where `" . $primary_key . "` = $id";
         $sql = str_replace(",where", "where", $sql);
- 
+        $this->debug($sql);
+        
         if (mysqli_query($this->_db_handler, $sql)) {
             $this->disconnect();
             return true;

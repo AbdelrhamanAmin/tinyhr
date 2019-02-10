@@ -1,7 +1,7 @@
 <?php 
 echo "Login page";
 if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']) ) {
-    $auth= new MemberAuthentication();
+    $auth= new MemberAuthentication($_POST['username'],$_POST['password']);
 
     if ($auth->is_valid()){
         header("Refresh:0");
