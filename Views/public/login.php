@@ -1,7 +1,7 @@
 <?php 
 echo "Login page";
 if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password']) ) {
-    $auth= new MemberAuthentication();
+    $auth= new MemberAuthentication($_POST['username'],$_POST['password']);
 
     if ($auth->is_valid()){
         header("Refresh:0");
@@ -20,4 +20,4 @@ if (isset($_POST['login']) && !empty($_POST['username']) && !empty($_POST['passw
     <input type = "password" name = "password" class = "box" placeholder="Enter your PassWord" /><br/><br />
     <button  type = "submit" name = "login" >Login</button><br />
 </form>	
-<a href="?signup">Sign up</a> 
+<a href="?signup">Sign up</a>

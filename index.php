@@ -10,6 +10,13 @@ session_start();
 session_regenerate_id();
 // admin/user, admin/users, member/edit , member/profile , public/signup, public/login index.php
 //********************************************//
+// 'username',$_POST['username'];
+
+
+echo '<pre>' . var_export($_SESSION, true) . '</pre>';
+
+
+
 
 if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
     // var_dump($_SESSION);
