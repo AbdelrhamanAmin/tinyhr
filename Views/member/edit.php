@@ -8,16 +8,15 @@ if(isset($_POST['update'])){
     $db = new MySQLHandler('members');
     $edited_values = array(
         "fullname"=>$_POST['fullname'],
-        "job"=>$_POST['job']
-        // "password"=>$_POST['passwrod'],
-        // "cv"=>$_POST['cv'],
-        // "photo"=>$_POST['photo']
+        "job"=>$_POST['job'],
+        "password"=>$_POST['passwrod'],
+
      );
 
     $user = $db->update($edited_values, intval($_SESSION['user_id']) );
     header('Location: index.php');
 
-    echo "$user";
+    
 }
 
 ?>

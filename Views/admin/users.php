@@ -22,9 +22,45 @@ if (count($members)<__RECORDS_PER_PAGE__){
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+#users {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#users td, #users th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#users tr:nth-child(even){background-color: #f2f2f2;}
+
+#users tr:hover {background-color: #ddd;}
+
+#users th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #333333;
+  color: white;
+}
+</style>
+
+
+
 
 <div>
-    <table border = 1px>
+    <table id="users" border = 1px>
         <tr>
             <th> Name </th>
             <th> Job </th>
@@ -44,5 +80,6 @@ if (count($members)<__RECORDS_PER_PAGE__){
 
     </table>
 
-
 </div>
+</body>
+</html>
