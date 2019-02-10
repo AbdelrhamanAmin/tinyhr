@@ -13,9 +13,6 @@ session_regenerate_id();
 // 'username',$_POST['username'];
 
 
-echo '<pre>' . var_export($_SESSION, true) . '</pre>';
-
-
 
 
 if(isset($_GET['logout']) && isset($_SESSION['user_id'])){

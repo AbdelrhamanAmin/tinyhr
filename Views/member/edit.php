@@ -40,7 +40,7 @@ if(isset($_POST['update'])){
         $db->connect();
         $db->update($form_input, $_SESSION['user_id']);
 
-        header('Location: /tiny/index.php');
+        header("Location: ".__PRJ_DIR__."index.php");
         die();
     }
     else {
