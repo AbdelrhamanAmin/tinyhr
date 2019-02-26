@@ -7,16 +7,16 @@ if(isset($_POST['signup']) ){
     $form_input['fullname'] = trim($_POST['fullname']);
     $form_input['job']      = trim($_POST['job']);
 
-    $form = new Form();
+    $form = new FormValidation();
     foreach ($_POST as $key=> $value){
-        $form->check_input_field($key, $value);
+        $form->validate_input_field($key, $value);
     }
 
-    $form->check_username($form_input['username']);
-    $form->check_password($form_input['password']);
+    $form->validate_username($form_input['username']);
+    $form->validate_password($form_input['password']);
 
-    $form->check_file($_FILES['cv'],'cv',__CV_TYPE__);
-    $form->check_file($_FILES['photo'],'photo',__PHOTO_IMG_TYPE__);
+    $form->validate_file($_FILES['cv'],'cv',__CV_TYPE__);
+    $form->validate_file($_FILES['photo'],'photo',__PHOTO_IMG_TYPE__);
 
 
     if ($form->is_valid()){
@@ -47,22 +47,48 @@ if(isset($_POST['signup']) ){
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 
-<h4>Sign up</h4>
+</head>
+<body>
+    <form action = "<?php echo $_SERVER['PHP_SELF'] ?> " method = "post" enctype="multipart/form-data">
+        <label for="uname"><b>User Name</b></label>
+        <input type = "text" name = "username" value = "<?php echo (isset($_POST['username']))? $_POST['username'] :Null; ?>" placeholder="Enter your  UserName" >
 
-<form action = "<?php echo $_SERVER['PHP_SELF'] ?>" method = "post" enctype="multipart/form-data">
-    <label>UserName  :</label>
-    <input type = "text" name = "username" value ="<?php echo (isset($_POST['username']))? $_POST['username'] :"";?>"class = "box" placeholder="Enter your Name" /><br /><br />
-    <label>Password  :</label>
-    <input type = "password" name = "password" value = "" class = "box" placeholder="Enter your PassWord" /><br/><br />
-    <label>Full Name  :</label>
-    <input type = "text" name = "fullname" value ="<?php echo (isset($_POST['fullname']))? $_POST['fullname'] :Null;?>" class = "box" placeholder="Enter your Full Name" /><br/><br />
-    <label>Job Title  :</label>
-    <input type = "text" name = "job" class = "box" value ="<?php echo (isset($_POST['job']))? $_POST['job'] :Null;?>" placeholder="Enter your Job Title" /><br/><br />
-    <label>Upload photo</label>
-    <input type="file"  name = "photo" ><br />
-    <label>Upload cv</label>
-    <input type="file"  name = "cv" > <br />
-    <input  type = "submit" name = "signup" value="Sign up"><br />
-</form>	
-<a href="?login">Log in</a> 
+        <label for="uname"><b>Password</b></label>
+        <input type = "password" name = "password" value = "" placeholder="Enter your Password" >
+
+        
+        <label for="uname"><b>Full Name</b></label>
+        <input type = "text" name = "fullname" value = "<?php echo (isset($_POST['fullname']))? $_POST['fullname'] :""; ?>"  placeholder="Enter your Full Name" >
+
+    
+        <label for="uname"><b>job Title</b></label>
+        <input type = "text" name = "job" value = "<?php echo (isset($_POST['job']))? $_POST['job'] :""; ?>"  placeholder="Enter your job" >
+
+        <label>Upload photo</label>
+        <input type="file"  name = "photo" ><br />
+    
+        <label>Upload cv</label>
+        <input type="file"  name = "cv" > <br />
+
+
+        <button  type = "submit" name = "signup" value="Sign up">Sign Up</button>
+        <br>
+        <label>
+            <br>
+            <a class="button" href="?login">Log in</a> 
+        </label>
+
+    </form>
+
+
+</body>
+</html>

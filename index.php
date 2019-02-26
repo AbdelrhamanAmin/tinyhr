@@ -53,19 +53,23 @@ if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>Tiny HR System</title>
 </head>
 <body>
 <center>
     <header>
         <hr>
-            <h1>Top Stuff
+            <h2>Tiny HR System </h2>
+            <h4>Welcome !</h4>
+            <h6> 
                 <?php
                     if(isset($_SESSION['user_id'])){?>
-                        <span ALIGN=RIGHT> <a  href="?logout"> Logout</a> </span>
+                        <span ALIGN=RIGHT> <a class="button"  href="?logout"> Logout</a> </span>
                 <?php }?>
-            </h1>
+            </h6>
         <hr>
+        <br>
     </header>
     <main class="content">
             <?php require_once './Views/'.$page. '.php';    ?>
@@ -73,7 +77,7 @@ if(isset($_GET['logout']) && isset($_SESSION['user_id'])){
 
     <footer>
         <hr>
-            <h3>Bottom Stuff</h3>
+            <h6>Made by Humans </h6>
         <hr>
     </footer>
 </center>

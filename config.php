@@ -16,4 +16,4 @@ define("__CV_TYPE__","application/pdf");
 define("__UPLOAD_ERR_NO_FILE__",4);
 define("__UPLOAD_ERR_INI_SIZE__",1);
 define("__UPLOAD_ERR_FORM_SIZE__",2);
-define("__PRJ_DIR__","/php/tiny/");
+define("__PRJ_DIR__","/php/tinyV1/");

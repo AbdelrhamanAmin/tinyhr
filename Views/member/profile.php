@@ -5,21 +5,14 @@ $user = $db->get_record_by_id($_SESSION['user_id'])[0];
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Document</title>
-    </head>
-    <body>
+
 
         <div align = "center">
-            <div style = "width:600px; border: solid 1px #333333; " align = "left">
+            <div style = "width:600px; border: solid 1px #333333; " align = "center">
                 <div align="center" style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b><?php  echo $user['fullname']." "."Profile" ?></b></div>	
                 <div style = "margin:30px">
                     <div align="right" >
-                        <!-- <embed src="<?php echo "cvs/". $user['cv']; ?>" width="300" height="375"  type="application/pdf"> -->
-                         <a href="<?= 'cvs/'. $user['cv']; ?>" target='_blank' ><span>View CV</span></a>
+                         <a  class="button" href="<?= 'cvs/'. $user['cv']; ?>" target='_blank' ><span>View CV</span></a>
                          
                     </div>
                     <div  width=300px; >
@@ -28,14 +21,14 @@ $user = $db->get_record_by_id($_SESSION['user_id'])[0];
                         <strong><i >NAME : </i> <?php  echo $user['fullname']; ?></strong>
                         <br>
                         <strong><i >JOB TITLE: </i> <?php  echo $user['job']; ?></strong>
-                        <p><i ></i> London, UK</p>
-                        <p><i ></i> April 1, 1988</p>
-                        <a href="?edit">Edit </a> 
+                        <br>
+                        
                     </div>
+                    <br>
+                    <a class="button" href="?edit">Edit </a> 
                 </div>
                 <br>
             </div>
-        </div>
+            <br>
 
-    </body>
-</html>
+        </div>
